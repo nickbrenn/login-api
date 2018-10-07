@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, FormFeedback, Input } from "reactstrap";
 import axios from "axios";
 
-class Login extends Component {
+class Register extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
   };
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return (
+      this.state.username.length > 0 &&
+      this.state.password.length > 0 &&
+      this.state.password === this.state.confirmPassword
+    );
   }
 
   handleChange = event => {
@@ -32,7 +37,7 @@ class Login extends Component {
               autoFocus
               id="username"
               type="username"
-              invalid={this.state.invalidInput}
+              invalid={this.state.usernameInvalid}
               value={this.state.username}
               onChange={this.handleChange}
               autoComplete="username"
@@ -43,13 +48,30 @@ class Login extends Component {
             <Input
               id="password"
               type="password"
-              invalid={this.state.invalidInput}
+              invalid={
+                this.state.password.length > 0 &&
+                (!/[A-Z]/.test(this.state.password) ||
+                  !/\d/.test(this.state.password))
+              }
               value={this.state.password}
               onChange={this.handleChange}
               autoComplete="current-password"
             />
             <FormFeedback>
-              The username or password you entered are incorrect.
+              Your password must contain at least one number and capital letter.
+            </FormFeedback>
+          </FormGroup>
+          <FormGroup>
+            <h5>Confirm Password</h5>
+            <Input
+              id="confirmPassword"
+              type="password"
+              invalid={this.state.confirmPassword !== this.state.password}
+              value={this.state.confirmPassword}
+              onChange={this.handleChange}
+            />
+            <FormFeedback>
+              Please confirm your password to register.
             </FormFeedback>
           </FormGroup>
           <Button
@@ -58,13 +80,13 @@ class Login extends Component {
             disabled={!this.validateForm()}
             type="submit"
           >
-            Login
+            Submit
           </Button>
           <Button
             color="danger"
-            onClick={() => this.props.history.push("/register")}
+            onClick={() => this.props.history.push("/login")}
           >
-            Register
+            Go to Login Page
           </Button>
         </Form>
       </div>
@@ -72,4 +94,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Register;
