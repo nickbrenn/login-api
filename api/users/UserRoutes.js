@@ -7,7 +7,9 @@ router.post("/register", (req, res) => {
     username: req.body.username,
     password: req.body.password
   };
-  User.save(newUserData)
+  const newUser = new User(newUserData);
+  newUser
+    .save()
     .then(user => {
       res.status(200).json(user);
     })
