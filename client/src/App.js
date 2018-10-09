@@ -30,9 +30,13 @@ class App extends Component {
         });
     } else this.setState({ verified: false, userData: false });
   };
+  setLogout = () => {
+    localStorage.removeItem("token");
+    this.setState({ verified: false, userData: null });
+  };
   render() {
     return (
-      <div>
+      <div className="app">
         <Route
           exact
           path="/register"
@@ -57,6 +61,7 @@ class App extends Component {
                 verified={this.state.verified}
                 userData={this.state.userData}
                 setLogin={this.setLogin}
+                setLogout={this.setLogout}
               />
             );
           }}

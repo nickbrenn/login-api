@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "reactstrap";
 
 class Content extends Component {
   componentDidMount = () => {
@@ -9,13 +10,27 @@ class Content extends Component {
     }
   };
   render() {
-    console.log("PROPS", this.props);
     if (this.props.userData && this.props.userData.username) {
-      return <div>{this.props.userData.username}</div>;
+      return (
+        <div className="content">
+          <div>{this.props.userData.username}</div>
+          <Button
+            color="danger"
+            onClick={() => {
+              this.props.setLogout();
+              this.props.history.push("/login");
+            }}
+          >
+            Log Out
+          </Button>
+        </div>
+      );
     } else if (this.props.userData === false) {
-      return <div>You don't have access to this content.</div>;
+      return (
+        <div className="content">You don't have access to this content.</div>
+      );
     } else {
-      return <div>Loading...</div>;
+      return <div className="content">Loading...</div>;
     }
   }
 }

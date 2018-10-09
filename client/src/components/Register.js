@@ -43,7 +43,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="login">
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <h5>Username</h5>
