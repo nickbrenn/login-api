@@ -13,7 +13,7 @@ class Content extends Component {
     if (this.props.userData && this.props.userData.username) {
       return (
         <div className="content">
-          <div>{this.props.userData.username}</div>
+          <div>Content that only {this.props.userData.username} can see.</div>
           <Button
             color="danger"
             onClick={() => {

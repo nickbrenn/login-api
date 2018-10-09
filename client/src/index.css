@@ -16,3 +16,9 @@
   justify-content: center;
   align-self: center;
 }
+.login form {
+  min-width: 25rem;
+}
+.login .btn {
+  margin-bottom: 1rem;
+}
