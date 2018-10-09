@@ -2,10 +2,29 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, FormFeedback, Input } from "reactstrap";
 import axios from "axios";
 
+const basePath = "http://localhost:3333";
+
 class Login extends Component {
   state = {
     username: "",
     password: ""
+  };
+
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      axios
+        .get(`${basePath}/users/verify/`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          this.props.history.push("/content");
+        })
+        .catch(error => {
+          localStorage.removeItem("token");
+        });
+    }
   };
 
   validateForm() {
@@ -20,6 +39,21 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    axios
+      .post(`${basePath}/users/login`, {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .then(response => {
+        if (response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          this.props.history.push("/content");
+        } else this.setState({ invalidInput: true, password: "" });
+      })
+      .catch(error => {
+        console.log("Error:", error);
+        this.setState({ invalidInput: true, password: "" });
+      });
   };
 
   render() {

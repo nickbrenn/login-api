@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, FormFeedback, Input } from "reactstrap";
 import axios from "axios";
 
+const basePath = "http://localhost:3333";
+
 class Register extends Component {
   state = {
     username: "",
@@ -25,6 +27,18 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    axios
+      .post(`${basePath}/users/register`, {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .then(response => {
+        this.props.history.push("/login");
+      })
+      .catch(error => {
+        console.log("Error:", error);
+        this.setState({ username: "", password: "", confirmPassword: "" });
+      });
   };
 
   render() {

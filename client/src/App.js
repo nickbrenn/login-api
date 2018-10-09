@@ -6,6 +6,9 @@ import Login from "./components/Login";
 import Content from "./components/Content";
 
 class App extends Component {
+  state = {
+    verified: false
+  };
   render() {
     return (
       <div>
@@ -27,7 +30,7 @@ class App extends Component {
           exact
           path="/content"
           render={props => {
-            return <Content {...props} />;
+            return <Content {...props} verified={this.state.verified} />;
           }}
         />
       </div>

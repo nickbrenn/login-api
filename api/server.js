@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const passport = require("passport");
 require("dotenv").config();
 const mongoose = require("mongoose");
 
@@ -7,6 +8,7 @@ const server = express();
 
 server.use(express.json());
 server.use(cors());
+require("./passport/passport.js")(passport);
 
 mongoose
   .connect(
