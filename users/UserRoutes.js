@@ -30,7 +30,7 @@ router.post("/register", (req, res) => {
     })
     .catch(error => {
       console.log("error:", error);
-      res.status(500);
+      res.status(500).send();
     });
 });
 
@@ -51,17 +51,17 @@ router.post("/login", (req, res) => {
             });
             res.status(200).json({ token });
           } else {
-            console.log("Not verified");
+            res.status(500).send();
           }
         })
         .catch(error => {
           console.log("error:", error);
-          res.status(500);
+          res.status(500).send();
         });
     })
     .catch(error => {
       console.log("error:", error);
-      res.status(404);
+      res.status(404).send();
     });
 });
 
