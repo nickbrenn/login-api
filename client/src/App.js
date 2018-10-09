@@ -1,13 +1,34 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import axios from "axios";
 
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Content from "./components/Content";
 
+const basePath = "http://localhost:3333";
+
 class App extends Component {
   state = {
-    verified: false
+    verified: false,
+    userData: null
+  };
+  setLogin = () => {
+    if (localStorage.getItem("token")) {
+      axios
+        .get(`${basePath}/users/verify/`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          this.setState({ verified: true, userData: response.data.user });
+        })
+        .catch(error => {
+          this.setState({ verified: false, userData: false });
+          localStorage.removeItem("token");
+        });
+    } else this.setState({ verified: false, userData: false });
   };
   render() {
     return (
@@ -30,7 +51,14 @@ class App extends Component {
           exact
           path="/content"
           render={props => {
-            return <Content {...props} verified={this.state.verified} />;
+            return (
+              <Content
+                {...props}
+                verified={this.state.verified}
+                userData={this.state.userData}
+                setLogin={this.setLogin}
+              />
+            );
           }}
         />
       </div>
