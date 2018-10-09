@@ -6,7 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Content from "./components/Content";
 
-const basePath = "http://localhost:3333";
+const urls = require("./config.json");
 
 class App extends Component {
   state = {
@@ -16,7 +16,7 @@ class App extends Component {
   setLogin = () => {
     if (localStorage.getItem("token")) {
       axios
-        .get(`${basePath}/users/verify/`, {
+        .get(`${urls[urls.basePath]}/users/verify/`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
           }

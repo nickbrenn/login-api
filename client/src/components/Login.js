@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, FormFeedback, Input } from "reactstrap";
 import axios from "axios";
 
-const basePath = "http://localhost:3333";
+const urls = require("../config.json");
 
 class Login extends Component {
   state = {
@@ -13,7 +13,7 @@ class Login extends Component {
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
       axios
-        .get(`${basePath}/users/verify/`, {
+        .get(`${urls[urls.basePath]}/users/verify/`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
           }
@@ -40,7 +40,7 @@ class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .post(`${basePath}/users/login`, {
+      .post(`${urls[urls.basePath]}/users/login`, {
         username: this.state.username,
         password: this.state.password
       })

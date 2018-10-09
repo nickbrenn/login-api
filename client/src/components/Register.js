@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, FormFeedback, Input } from "reactstrap";
 import axios from "axios";
 
-const basePath = "http://localhost:3333";
+const urls = require("../config.json");
 
 class Register extends Component {
   state = {
@@ -28,7 +28,7 @@ class Register extends Component {
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .post(`${basePath}/users/register`, {
+      .post(`${urls[urls.basePath]}/users/register`, {
         username: this.state.username,
         password: this.state.password
       })
