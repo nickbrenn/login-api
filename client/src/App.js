@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import axios from "axios";
 
 import Register from "./components/Register";
@@ -37,6 +37,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
+        <Route exact path="/" render={() => <Redirect to="/login" />} />
         <Route
           exact
           path="/register"
