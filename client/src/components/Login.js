@@ -51,7 +51,7 @@ class Login extends Component {
         } else this.setState({ invalidInput: true, password: "" });
       })
       .catch(error => {
-        console.log("Error:", error);
+        // console.log("Error:", error);
         this.setState({ invalidInput: true, password: "" });
       });
   };
