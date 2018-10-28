@@ -95,7 +95,7 @@ class Login extends Component {
             Login
           </Button>
           <Button
-            color="danger"
+            color="secondary"
             onClick={() => this.props.history.push("/register")}
           >
             Register
